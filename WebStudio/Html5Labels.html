@@ -1,4 +1,5 @@
 ﻿<!DOCTYPE html>
+<html>
 <head>
     <meta charset=utf-8>
     <title>页面结构</title>
@@ -28,6 +29,15 @@
             clear: both;
             width: 500px;
         }
+        footer :hover #lala{
+            display:block;
+        }
+        #lala:hover #video {
+            width:500px!important;
+        }
+        #video:hover {
+            width:500px!important;
+        }
     </style>
 
     <script type="text/javascript">
@@ -35,6 +45,9 @@
 document.createElement('article');
 document.createElement('nav');
 document.createElement('header');
+
+var video = document.getElementById("video");
+
     </script>
 
 </head>
@@ -57,7 +70,17 @@ document.createElement('header');
     <footer>
         <address>上海徐汇区-创恩教育-PHP100中文网</address>
     </footer>
-
+    <content>
+        <div id="lala" style="display:block;background:repeat-x bottom ;background-color:blue; width:100px;height:50px;">
+            lalalalala
+            <div id="www" style="background-color:red">sdfsdfs</div>
+            <video id="video" src="E:\BaiduYunDownload\HTML5_29577\第3课_HTML5视频播放事件属性与API控件\第23课_HTML5视频播放事件属性与API控件.avi" controls="controls">
+                你的破浏览器不支持视屏播放。
+                <source src="第3课_HTML5视频播放事件属性与API控件\第23课_HTML5视频播放事件属性与API控件.avi" />// 设置多个视屏源
+                <source src="" />
+            </video>
+        </div>
+    </content>
 </body>
 </html>
 
