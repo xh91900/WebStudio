@@ -81,8 +81,55 @@ var video = document.getElementById("video");
             </video>
         </div>
     </content>
+    <content>
+        <canvas id="canvas" width="500px" height="500px" onmousemove="move(event)">
+            你的破浏览器不支持canvas标签
+        </canvas>
+        <div id="xy"></div>
+    </content>
 </body>
 </html>
+<script type="text/javascript">
+    document.Ready(function () {
+        move(null);
+    })
+    function move(n)
+    {
+        var x = n.clientX;
+        var y = n.clientY;
+        document.getElementById("xy").innerHTML = "坐标X轴：" + x + "Y轴：" + y;
+
+        var c = document.getElementById("canvas");
+        var p100 = c.getContext('2d');// 获取2d引擎
+        p100.fillStyle = "red";//定义颜色
+        p100.fillRect(100, 100, 200, 200);// 定义矩形的大小
+        //透明色
+        p100.fillStyle = "rgba(0,0,255,0.5)";// 定义可以设置透明对的颜色，最后一个参数就是透明度
+        p100.fillRect(200, 200, 500, 200);
+        // 画直线
+        p100.moveTo(10, 10);// 起始位置
+        p100.lineTo(500, 10);// 终点位置
+        p100.lineTo(10, 50);// 如果没有再次设置起点将从结束为止开始画
+        p100.stroke();// 结束图形（开始画）
+        // 画圆
+        p100.fillStyle = "blue";
+        p100.beginPath();// 从新开始画，防止冲突重叠
+        p100.arc(200, 200, 30, 0, Math.PI * 2, true);// x坐标，y坐标，直径，开始，终点，时针（true：逆时针，false：顺时针）
+        p100.closePath();// 结束画布，防止冲突重叠
+        p100.fill();//结束渲染
+        // 渐变
+        var grd = p100.createLinearGradient(100, 100, 175, 50);// 渐变色的起点坐标和终点坐标
+        grd.addColorStop(0, 'yellow');//0.。。。。1从黄色
+        grd.addColorStop(0.5, "red");// 到蓝色
+        grd.addColorStop(1, "blue");// 到蓝色
+        p100.fillStyle = grd;
+        p100.fillRect(100, 100, 175, 50);
+        // 载入图片
+        var img=new Image();
+        img.src = "C:\Users\hq\Desktop\罗伯特德罗尼.jpg";
+        p100.drawImage(img, 500, 500);
+    }
+</script>
 
 
 
