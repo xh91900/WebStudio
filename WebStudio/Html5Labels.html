@@ -87,11 +87,22 @@ var video = document.getElementById("video");
         </canvas>
         <div id="xy"></div>
     </content>
+    <content>
+        <canvas width="300px" height="300px" id="canvas1"></canvas>
+        <button onclick="interval = setInterval(move1, 20);">开始</button>
+        <button onclick="clearInterval(interval)">停止</button>
+    </content>
 </body>
 </html>
 <script type="text/javascript">
+    var dir = 100;
+    var width = 300;
+    var height = 300;
+    var exp = -1;// 像素移动的位置，正数向下，负数向上
     document.Ready(function () {
         move(null);
+        var interval= setInterval(move1, 1000);//反复执行某个函数,返回定时器的id
+        clearInterval(interval);//取消反复执行的定时器
     })
     function move(n)
     {
@@ -127,7 +138,25 @@ var video = document.getElementById("video");
         // 载入图片
         var img=new Image();
         img.src = "C:\Users\hq\Desktop\罗伯特德罗尼.jpg";
-        p100.drawImage(img, 500, 500);
+        //p100.drawImage(img, 500, 500);
+    }
+
+    function move1()
+    {
+        var c = document.getElementById("canvas1");
+        var p100 = c.getContext("2d");
+        // 画圆
+        p100.clearRect(0,0,width,height);//檫除的一个区域
+        p100.fillStyle = "red";
+        p100.beginPath();// 从新开始画，防止冲突重叠
+        p100.arc(180, dir, 30, 0, Math.PI * 2, true);// x坐标，y坐标，直径，开始，终点，时针（true：逆时针，false：顺时针）
+        p100.closePath();// 结束画布，防止冲突重叠
+        p100.fill();//结束渲染
+        dir = dir + exp;
+        if (dir == 30 || dir == height-30)
+        {
+            exp = exp * -1;// 掉头
+        }
     }
 </script>
 
