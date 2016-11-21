@@ -1,6 +1,7 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
     <meta charset=utf-8>
     <title>页面结构</title>
     <style type="text/css">
@@ -28,9 +29,6 @@
         footer {
             clear: both;
             width: 500px;
-        }
-        footer :hover #lala{
-            display:block;
         }
         #lala:hover #video {
             width:500px!important;
@@ -71,7 +69,7 @@ var video = document.getElementById("video");
         <address>上海徐汇区-创恩教育-PHP100中文网</address>
     </footer>
     <content>
-        <div id="lala" style="display:block;background:repeat-x bottom ;background-color:blue; width:100px;height:50px;">
+        <div id="lala" style="background:repeat-x bottom ;background-color:blue; width:100px;height:50px;">
             lalalalala
             <div id="www" style="background-color:red">sdfsdfs</div>
             <video id="video" src="E:\BaiduYunDownload\HTML5_29577\第3课_HTML5视频播放事件属性与API控件\第23课_HTML5视频播放事件属性与API控件.avi" controls="controls">
@@ -82,15 +80,18 @@ var video = document.getElementById("video");
         </div>
     </content>
     <content>
-        <canvas id="canvas" width="500px" height="500px" onmousemove="move(event)">
+        <canvas style="border:1px solid blue" id="canvas" width="500px" height="500px" onmousemove="move(event)">
             你的破浏览器不支持canvas标签
         </canvas>
         <div id="xy"></div>
     </content>
-    <content>
-        <canvas width="300px" height="300px" id="canvas1"></canvas>
+    <content style="float:left">
+        <canvas style="border:1px solid red" width="300px" height="300px" id="canvas1"></canvas>
         <button onclick="interval = setInterval(move1, 20);">开始</button>
         <button onclick="clearInterval(interval)">停止</button>
+    </content>
+    <content>
+        <canvas width="500px" height="500px" id="huab" style="border:1px solid black"></canvas>
     </content>
 </body>
 </html>
@@ -99,11 +100,11 @@ var video = document.getElementById("video");
     var width = 300;
     var height = 300;
     var exp = -1;// 像素移动的位置，正数向下，负数向上
-    document.Ready(function () {
-        move(null);
-        var interval= setInterval(move1, 1000);//反复执行某个函数,返回定时器的id
-        clearInterval(interval);//取消反复执行的定时器
-    })
+    //document.Ready(function () {
+    //    move(null);
+    //    var interval= setInterval(move1, 1000);//反复执行某个函数,返回定时器的id
+    //    clearInterval(interval);//取消反复执行的定时器
+    //})
     function move(n)
     {
         var x = n.clientX;
@@ -158,6 +159,34 @@ var video = document.getElementById("video");
             exp = exp * -1;// 掉头
         }
     }
+    
+    // 画图
+    var c = document.getElementById("huab");
+    var p100 = c.getContext('2d');// 获取2d引擎
+    p100.lineWidth = 5;
+    p100.strokeStyle = "blue";
+    var down = false;
+
+    $("#huab").mousedown(function (e) {
+        var mouseX = e.pageX - this.offsetLeft;
+        var mouseY = e.pageY - this.offsetTop;
+        p100.moveTo(mouseX, mouseY);
+        down = true;
+    });
+
+    $("#huab").mouseup(function (e) {
+        down = false;
+    });
+
+    $("#huab").mousemove(function (e) {
+        if (down)
+        {
+            var mouseX = e.pageX - this.offsetLeft;
+            var mouseY = e.pageY - this.offsetTop;
+            p100.lineTo(mouseX, mouseY);
+            p100.stroke();
+        }
+    });
 </script>
 
 
