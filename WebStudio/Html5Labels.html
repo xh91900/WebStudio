@@ -2,6 +2,7 @@
 <html>
 <head>
     <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
+    <script type="text/javascript" src="http://api.map.baidu.com/api?key=&v=1.1&service=true"></script>
     <meta charset=utf-8>
     <title>页面结构</title>
     <style type="text/css">
@@ -80,10 +81,13 @@ var video = document.getElementById("video");
         </div>
     </content>
     <content>
-        <canvas style="border:1px solid blue" id="canvas" width="500px" height="500px" onmousemove="move(event)">
+        <canvas style="border:1px solid blue;" id="canvas" width="500px" height="500px" onmousemove="move(event)">
             你的破浏览器不支持canvas标签
         </canvas>
-        <div id="xy"></div>
+        <div id="xy" style="float:left"></div>
+
+        <div id="location" style="border:1px solid red;width:500px;height:500px;">
+        </div>
     </content>
     <content style="float:left">
         <canvas style="border:1px solid red" width="300px" height="300px" id="canvas1"></canvas>
@@ -96,6 +100,24 @@ var video = document.getElementById("video");
 </body>
 </html>
 <script type="text/javascript">
+
+    function createMap(a, b) {
+        var map = new BMap.Map("location");
+        var point = new BMap.Point(b, a);
+        map.centerAndZoom(point, 20);
+        window.map = map;
+    }
+    if (navigator.geolocation) {
+        createMap(31.230393, 121.473704);
+        navigator.geolocation.getCurrentPosition(function (p) {
+            alert(p.coords.latitude);
+            createMap(p.coords.latitude, p.coo.longitude);
+        }, function (error) {
+            alert(error);
+        });
+    }
+    else { alert("shit"); }
+
     var dir = 100;
     var width = 300;
     var height = 300;
